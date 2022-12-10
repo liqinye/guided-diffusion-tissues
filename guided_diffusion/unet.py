@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .fp16_util import convert_module_to_f16, convert_module_to_f32
-from .nn import (
+from nn import (
     checkpoint,
     conv_nd,
     linear,
@@ -435,7 +435,7 @@ class UNetModel(nn.Module):
         dropout=0,
         channel_mult=(1, 2, 4, 8),
         conv_resample=True,
-        dims=2,
+        dims=3,
         num_classes=None,
         use_checkpoint=False,
         use_fp16=False,
@@ -696,7 +696,7 @@ class EncoderUNetModel(nn.Module):
         dropout=0,
         channel_mult=(1, 2, 4, 8),
         conv_resample=True,
-        dims=2,
+        dims=3,
         use_checkpoint=False,
         use_fp16=False,
         num_heads=1,

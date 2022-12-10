@@ -132,9 +132,9 @@ def create_model(
     num_channels,
     num_res_blocks,
     channel_mult="",
-    learn_sigma=False,
-    class_cond=False,
-    use_checkpoint=False,
+    learn_sigma=False,      # True -> learn the variances instead of hard coding
+    class_cond=False,       
+    use_checkpoint=False,   # during foward, instead of using memory to save activations in each layer, recompute in the backward. trading time with memory
     attention_resolutions="16",
     num_heads=1,
     num_head_channels=-1,

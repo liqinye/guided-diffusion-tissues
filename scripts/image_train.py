@@ -14,6 +14,8 @@ from guided_diffusion.script_util import (
     add_dict_to_argparser,
 )
 from guided_diffusion.train_util import TrainLoop
+from datapipe import TrainDataset
+from torch.utils.data import DataLoader
 
 
 def main():
@@ -30,18 +32,21 @@ def main():
     schedule_sampler = create_named_schedule_sampler(args.schedule_sampler, diffusion)
 
     logger.log("creating data loader...")
-    data = load_data(
-        data_dir=args.data_dir,
-        batch_size=args.batch_size,
-        image_size=args.image_size,
-        class_cond=args.class_cond,
-    )
+    # data = load_data(
+    #     data_dir=args.data_dir,
+    #     batch_size=args.batch_size,
+    #     image_size=args.image_size,
+    #     class_cond=args.class_cond,
+    # )
+    data_path = "D:/climate_project/data/h3/*.nc"
+    train_dataset = TrainDataset(data_path)
+    train_loader = DataLoader(train_dataset)
 
     logger.log("training...")
     TrainLoop(
         model=model,
         diffusion=diffusion,
-        data=data,
+        data=train_loader,
         batch_size=args.batch_size,
         microbatch=args.microbatch,
         lr=args.lr,
